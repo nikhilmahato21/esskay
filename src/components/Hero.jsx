@@ -97,13 +97,13 @@ export default function Hero() {
           </div>
 
           {/* Headline */}
-          <h1 className="font-dm font-black text-white text-4xl sm:text-5xl xl:text-[56px] leading-[1.0] tracking-tight mb-5 uppercase">
+          <h1 className="font-dm font-black text-white text-5xl sm:text-6xl xl:text-[68px] leading-[1.0] tracking-tight mb-5 uppercase">
             RIDE WITH<br />
             <span className="text-gold">ESSKAY</span><br />
             TRAVELS.
           </h1>
 
-          <p className="text-white/65 text-sm sm:text-base leading-[1.8] mb-8 max-w-[480px] mx-auto xl:mx-0">
+          <p className="text-white/65 text-base sm:text-lg leading-[1.8] mb-8 max-w-[480px] mx-auto xl:mx-0">
             Local city rides and long-distance intercity travel from Surat.
             Sedan, Ertiga &amp; Innova available. Fixed rates. No hidden charges.
           </p>
@@ -112,8 +112,8 @@ export default function Hero() {
           <div className="flex flex-wrap justify-center xl:justify-start gap-0 mb-8 border border-white/10 divide-x divide-white/10 w-fit mx-auto xl:mx-0">
             {TRUST_BADGES.map(b => (
               <div key={b.label} className="px-6 py-3 text-center">
-                <p className="text-gold font-black text-xl leading-none">{b.num}</p>
-                <p className="text-white/50 text-[10px] tracking-widest uppercase mt-1">{b.label}</p>
+                <p className="text-gold font-black text-2xl leading-none">{b.num}</p>
+                <p className="text-white/50 text-xs tracking-widest uppercase mt-1">{b.label}</p>
               </div>
             ))}
           </div>
@@ -122,7 +122,7 @@ export default function Hero() {
           <div className="flex flex-wrap justify-center xl:justify-start gap-3">
             <a
               href="tel:+919109105155"
-              className="flex items-center gap-2 bg-gold hover:bg-gold-dark text-steel font-black px-7 py-3.5 text-[13px] tracking-wider uppercase transition-colors duration-200 no-underline"
+              className="flex items-center gap-2 bg-gold hover:bg-gold-dark text-steel font-black px-7 py-4 text-sm tracking-wider uppercase transition-colors duration-200 no-underline"
             >
               <PhoneIcon />
               910-910-5155
@@ -131,7 +131,7 @@ export default function Hero() {
               href="https://wa.me/+919109105155?text=Hi%20I%20want%20to%20book%20a%20cab"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 border border-white/30 text-white hover:border-white/60 hover:bg-white/5 px-7 py-3.5 text-[13px] tracking-wider uppercase font-bold transition-all duration-200 no-underline"
+              className="flex items-center gap-2 border border-white/30 text-white hover:border-white/60 hover:bg-white/5 px-7 py-4 text-sm tracking-wider uppercase font-bold transition-all duration-200 no-underline"
             >
               <WhatsappIcon />
               WhatsApp

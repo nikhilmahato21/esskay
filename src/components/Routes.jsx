@@ -23,6 +23,7 @@ const pricing = [
   { destination: 'NAGPUR',           sedan: 11000, ertiga: 13000, innova: 16000 },
   { destination: 'AURANGABAD',       sedan: 7500,  ertiga: 9500,  innova: 12000 },
   { destination: 'STATUE OF UNITY',  sedan: 4000,  ertiga: 5000,  innova: 6000  },
+  { destination: 'NEW DELHI',         sedan: 2000,  ertiga: 25000, innova: 30000 },
 ]
 
 const SearchIcon = () => (
