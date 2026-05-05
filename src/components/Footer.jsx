@@ -9,7 +9,7 @@ export default function Footer() {
 
   const destinations = [
     'Mumbai', 'Pune', 'Goa', 'Ahmedabad', 'Vadodara',
-    'Nashik', 'Shirdi', 'Rajkot', 'Udaipur', 'Jaipur',
+    'Nashik', 'Shirdi', 'Rajkot', 'Udaipur', 'Jaipur', 'New Delhi',
   ]
 
   return (
