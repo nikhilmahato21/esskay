@@ -24,6 +24,7 @@ export default {
         playfair: ['"Playfair Display"', 'serif'],
         dm: ['"DM Sans"', 'sans-serif'],
         mono: ['"DM Mono"', 'monospace'],
+        price: ['"Space Grotesk"', 'sans-serif'],
       },
     },
   },

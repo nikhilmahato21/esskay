@@ -129,13 +129,13 @@ export default function Routes() {
                   {row.destination}
                 </div>
                 <div className="px-6 py-4 text-center border-l border-gray-100">
-                  <span className="font-black text-steel text-base">₹{row.sedan.toLocaleString()}</span>
+                  <span className="font-price font-bold text-steel text-2xl tracking-tight">₹{row.sedan.toLocaleString()}</span>
                 </div>
                 <div className="px-6 py-4 text-center border-l border-gray-100 bg-gold/5">
-                  <span className="font-black text-gold text-base">₹{row.ertiga.toLocaleString()}</span>
+                  <span className="font-price font-bold text-gold text-2xl tracking-tight">₹{row.ertiga.toLocaleString()}</span>
                 </div>
                 <div className="px-6 py-4 text-center border-l border-gray-100 flex items-center justify-between">
-                  <span className="flex-1 font-black text-steel text-base">₹{row.innova.toLocaleString()}</span>
+                  <span className="flex-1 font-price font-bold text-steel text-2xl tracking-tight">₹{row.innova.toLocaleString()}</span>
                   <button
                     onClick={(e) => { e.stopPropagation(); handleBook(row) }}
                     className="ml-3 text-[10px] font-black tracking-[1.5px] uppercase text-white bg-steel hover:bg-gold hover:text-steel px-3 py-1.5 transition-colors border-none cursor-pointer"
@@ -167,15 +167,15 @@ export default function Routes() {
                 <div className="grid grid-cols-3 divide-x divide-gray-100">
                   <div className="px-3 py-4 text-center">
                     <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-1">SEDAN</p>
-                    <p className="font-black text-steel text-base">₹{row.sedan.toLocaleString()}</p>
+                    <p className="font-price font-bold text-steel text-xl tracking-tight">₹{row.sedan.toLocaleString()}</p>
                   </div>
                   <div className="px-3 py-4 text-center bg-gold/5">
                     <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-1">ERTIGA</p>
-                    <p className="font-black text-gold text-base">₹{row.ertiga.toLocaleString()}</p>
+                    <p className="font-price font-bold text-gold text-xl tracking-tight">₹{row.ertiga.toLocaleString()}</p>
                   </div>
                   <div className="px-3 py-4 text-center">
                     <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-1">INNOVA</p>
-                    <p className="font-black text-steel text-base">₹{row.innova.toLocaleString()}</p>
+                    <p className="font-price font-bold text-steel text-xl tracking-tight">₹{row.innova.toLocaleString()}</p>
                   </div>
                 </div>
               </div>
