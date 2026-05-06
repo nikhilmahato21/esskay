@@ -151,11 +151,11 @@ export default function Fleet() {
                   </p>
                   <a
                     href="#contact"
-                    className={`text-[11px] font-black tracking-[2px] uppercase transition-colors no-underline ${
-                      v.featured ? 'text-gold hover:text-gold-light' : 'text-gold hover:text-gold-dark'
+                    className={`text-[11px] font-black tracking-wider uppercase transition-colors no-underline px-4 py-1.5 rounded-full border ${
+                      v.featured ? 'border-gold text-gold hover:bg-gold hover:text-steel' : 'border-gold text-gold hover:bg-gold hover:text-steel'
                     }`}
                   >
-                    BOOK →
+                    Book Now
                   </a>
                 </div>
               </div>

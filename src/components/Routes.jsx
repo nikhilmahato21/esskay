@@ -23,7 +23,7 @@ const pricing = [
   { destination: 'NAGPUR',           sedan: 11000, ertiga: 13000, innova: 16000 },
   { destination: 'AURANGABAD',       sedan: 7500,  ertiga: 9500,  innova: 12000 },
   { destination: 'STATUE OF UNITY',  sedan: 4000,  ertiga: 5000,  innova: 6000  },
-  { destination: 'NEW DELHI',         sedan: 2000,  ertiga: 25000, innova: 30000 },
+  { destination: 'NEW DELHI',         sedan: 20000,  ertiga: 25000, innova: 30000 },
 ]
 
 const SearchIcon = () => (
@@ -130,18 +130,23 @@ export default function Routes() {
                   {row.destination}
                 </div>
                 <div className="px-6 py-4 text-center border-l border-gray-100">
+                  <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-0.5">FROM</p>
                   <span className="font-price font-bold text-steel text-2xl tracking-tight">₹{row.sedan.toLocaleString()}</span>
                 </div>
                 <div className="px-6 py-4 text-center border-l border-gray-100 bg-gold/5">
+                  <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-0.5">FROM</p>
                   <span className="font-price font-bold text-gold text-2xl tracking-tight">₹{row.ertiga.toLocaleString()}</span>
                 </div>
                 <div className="px-6 py-4 text-center border-l border-gray-100 flex items-center justify-between">
-                  <span className="flex-1 font-price font-bold text-steel text-2xl tracking-tight">₹{row.innova.toLocaleString()}</span>
+                  <div className="flex-1">
+                    <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-0.5">FROM</p>
+                    <span className="font-price font-bold text-steel text-2xl tracking-tight">₹{row.innova.toLocaleString()}</span>
+                  </div>
                   <button
                     onClick={(e) => { e.stopPropagation(); handleBook(row) }}
-                    className="ml-3 text-[10px] font-black tracking-[1.5px] uppercase text-white bg-steel hover:bg-gold hover:text-steel px-3 py-1.5 transition-colors border-none cursor-pointer"
+                    className="ml-3 text-[11px] font-black tracking-wide uppercase text-steel bg-gold hover:bg-gold-dark px-4 py-2 rounded-full transition-colors border-none cursor-pointer"
                   >
-                    BOOK
+                    Book Now
                   </button>
                 </div>
               </div>
@@ -160,9 +165,9 @@ export default function Routes() {
                   <span className="font-black text-sm uppercase tracking-wide">{row.destination}</span>
                   <button
                     onClick={() => handleBook(row)}
-                    className="text-[10px] font-black tracking-wider uppercase text-steel bg-gold px-3 py-1.5 border-none cursor-pointer"
+                    className="text-[11px] font-black tracking-wide uppercase text-steel bg-gold hover:bg-gold-dark px-4 py-1.5 rounded-full border-none cursor-pointer transition-colors"
                   >
-                    BOOK
+                    Book Now
                   </button>
                 </div>
                 <div className="grid grid-cols-3 divide-x divide-gray-100">

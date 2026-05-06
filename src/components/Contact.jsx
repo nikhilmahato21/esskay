@@ -120,7 +120,7 @@ export default function Contact() {
               </div>
               <a
                 href="tel:+919109105155"
-                className="flex-shrink-0 bg-steel text-white px-6 py-3 font-black text-[13px] uppercase tracking-wider no-underline hover:bg-steel-light transition-colors"
+                className="flex-shrink-0 bg-steel text-white px-6 py-3 rounded-full font-black text-[13px] uppercase tracking-wider no-underline hover:bg-steel-light transition-colors"
               >
                 CALL NOW
               </a>
@@ -182,7 +182,7 @@ export default function Contact() {
                   placeholder="Any special requirements, number of passengers..."
                   className="w-full border border-gray-200 focus:border-gold px-3.5 py-3 text-sm font-dm outline-none transition-colors placeholder:text-gray-300 resize-none" />
                 <button type="submit"
-                  className="w-full bg-gold hover:bg-gold-dark active:scale-[0.98] text-steel py-4 text-[13px] font-black flex items-center justify-center gap-2 transition-all duration-200 border-none cursor-pointer uppercase tracking-widest">
+                  className="w-full bg-gold hover:bg-gold-dark active:scale-[0.98] text-steel py-4 rounded-full text-[13px] font-black flex items-center justify-center gap-2 transition-all duration-200 border-none cursor-pointer uppercase tracking-widest">
                   <SendIcon /> SEND VIA WHATSAPP
                 </button>
               </form>

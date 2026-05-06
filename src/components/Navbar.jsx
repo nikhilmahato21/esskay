@@ -74,7 +74,7 @@ export default function Navbar() {
           </a>
           <a
             href="#contact"
-            className="bg-gold hover:bg-gold-dark text-steel-DEFAULT text-[13px] font-black px-5 py-2.5 tracking-wider uppercase transition-colors duration-200 cursor-pointer no-underline"
+            className="bg-gold hover:bg-gold-dark text-steel text-[13px] font-black px-6 py-2.5 rounded-full tracking-wider uppercase transition-colors duration-200 cursor-pointer no-underline"
           >
             BOOK NOW
           </a>

@@ -27,7 +27,7 @@ export default function Footer() {
           <div className="flex gap-3 flex-shrink-0">
             <a
               href="tel:+919109105155"
-              className="bg-gold text-steel px-6 py-3 font-black text-[13px] uppercase tracking-wider no-underline hover:bg-gold-light transition-colors"
+              className="bg-gold text-steel px-6 py-3 rounded-full font-black text-[13px] uppercase tracking-wider no-underline hover:bg-gold-light transition-colors"
             >
               910-910-5155
             </a>
@@ -35,7 +35,7 @@ export default function Footer() {
               href="https://wa.me/+919109105155"
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-white/20 text-white px-6 py-3 font-black text-[13px] uppercase tracking-wider no-underline hover:bg-white/10 transition-colors"
+              className="border border-white/20 text-white px-6 py-3 rounded-full font-black text-[13px] uppercase tracking-wider no-underline hover:bg-white/10 transition-colors"
             >
               WHATSAPP
             </a>

@@ -122,7 +122,7 @@ export default function Hero() {
           <div className="flex flex-wrap justify-center xl:justify-start gap-3">
             <a
               href="tel:+919109105155"
-              className="flex items-center gap-2 bg-gold hover:bg-gold-dark text-steel font-black px-7 py-4 text-sm tracking-wider uppercase transition-colors duration-200 no-underline"
+              className="flex items-center gap-2 bg-gold hover:bg-gold-dark text-steel font-black px-7 py-4 rounded-full text-sm tracking-wider uppercase transition-colors duration-200 no-underline"
             >
               <PhoneIcon />
               910-910-5155
@@ -131,7 +131,7 @@ export default function Hero() {
               href="https://wa.me/+919109105155?text=Hi%20I%20want%20to%20book%20a%20cab"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 border border-white/30 text-white hover:border-white/60 hover:bg-white/5 px-7 py-4 text-sm tracking-wider uppercase font-bold transition-all duration-200 no-underline"
+              className="flex items-center gap-2 border border-white/30 text-white hover:border-white/60 hover:bg-white/5 px-7 py-4 rounded-full text-sm tracking-wider uppercase font-bold transition-all duration-200 no-underline"
             >
               <WhatsappIcon />
               WhatsApp
@@ -210,7 +210,7 @@ export default function Hero() {
 
               <button
                 type="submit"
-                className="w-full bg-gold hover:bg-gold-dark active:scale-[0.98] text-steel py-3.5 text-[13px] font-black flex items-center justify-center gap-2 transition-all duration-200 border-none cursor-pointer uppercase tracking-wider"
+                className="w-full bg-gold hover:bg-gold-dark active:scale-[0.98] text-steel py-3.5 rounded-full text-[13px] font-black flex items-center justify-center gap-2 transition-all duration-200 border-none cursor-pointer uppercase tracking-wider"
               >
                 <SendIcon />
                 SEND BOOKING REQUEST
