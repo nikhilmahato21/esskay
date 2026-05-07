@@ -1,52 +1,123 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'DM Sans', sans-serif;
     color: #1C1C1E;
     background: #ffffff;
     overflow-x: hidden;
   }
-
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 }
 
-@layer components {
-  .section-label {
-    @apply text-gold text-[10px] font-black tracking-[3px] uppercase mb-2;
-  }
+/* ── Scroll animations ── */
+.anim-up {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1);
+}
+.anim-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1);
+}
+.anim-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1);
+}
+.anim-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1);
+}
+.in-view {
+  opacity: 1 !important;
+  transform: translateY(0) translateX(0) scale(1) !important;
+}
+.d1 { transition-delay: 80ms; }
+.d2 { transition-delay: 160ms; }
+.d3 { transition-delay: 240ms; }
+.d4 { transition-delay: 320ms; }
+.d5 { transition-delay: 400ms; }
+.d6 { transition-delay: 480ms; }
 
-  .section-title {
-    @apply font-dm font-black text-4xl sm:text-5xl text-steel uppercase leading-tight tracking-tight mb-4;
-  }
-
-  .btn-gold {
-    @apply bg-gold hover:bg-gold-dark text-steel font-black transition-colors duration-200 cursor-pointer;
-  }
+/* ── Hero headline ── */
+@keyframes heroWord {
+  from { opacity: 0; transform: translateY(70px) skewY(2deg); }
+  to   { opacity: 1; transform: translateY(0) skewY(0); }
+}
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+  animation: heroWord 1s cubic-bezier(.16,1,.3,1) forwards;
 }
 
-/* Industrial scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
+/* ── Marquee ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
-::-webkit-scrollbar-track {
-  background: #EBEBEB;
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
 }
-::-webkit-scrollbar-thumb {
-  background: #1C1C1E;
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ── Line reveal ── */
+.line-grow {
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.9s cubic-bezier(.16,1,.3,1) 0.2s;
 }
-::-webkit-scrollbar-thumb:hover {
+.in-view > .line-grow, .line-grow.active { transform: scaleX(1); }
+
+/* ── Card lift ── */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(.16,1,.3,1), box-shadow 0.35s ease;
+}
+.card-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.13);
+}
+
+/* ── Nav underline ── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 2px;
   background: #E8A400;
+  transition: width 0.25s ease;
 }
+.nav-link:hover::after { width: 100%; }
+
+/* ── Industrial scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #EBEBEB; }
+::-webkit-scrollbar-thumb { background: #1C1C1E; }
+::-webkit-scrollbar-thumb:hover { background: #E8A400; }
+
+/* ── Gold button pulse ── */
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232,164,0,0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(232,164,0,0); }
+}
+.btn-pulse { animation: goldPulse 2.5s ease-in-out infinite; }
+
+/* ── Counter pop ── */
+@keyframes numPop {
+  from { opacity: 0; transform: scale(0.6) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.num-pop { animation: numPop 0.7s cubic-bezier(.16,1,.3,1) forwards; }

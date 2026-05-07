@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useInView } from '../hooks/useInView'
 
 const SendIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -57,6 +58,7 @@ const contactItems = [
 export default function Contact() {
   const [form, setForm] = useState({ name: '', phone: '', pickup: 'Surat', drop: '', date: '', vehicle: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [ref, inView] = useInView()
 
   const handleChange = e => setForm(p => ({ ...p, [e.target.name]: e.target.value }))
 
@@ -73,118 +75,142 @@ export default function Contact() {
       <div className="max-w-screen-xl mx-auto">
 
         {/* Header */}
-        <div className="mb-12">
-          <p className="text-[10px] font-black tracking-[3px] text-gold uppercase mb-2">GET IN TOUCH</p>
-          <h2 className="font-dm font-black text-4xl sm:text-5xl text-steel uppercase leading-tight tracking-tight">
+        <div ref={ref} className="mb-12">
+          <p className={`text-[10px] font-black tracking-[3px] text-gold uppercase mb-3 anim-up ${inView ? 'in-view' : ''}`}>
+            05 — GET IN TOUCH
+          </p>
+          <h2 className={`font-dm font-black text-steel uppercase leading-[0.88] tracking-tighter anim-up d1 ${inView ? 'in-view' : ''}`}
+            style={{ fontSize: 'clamp(48px, 7vw, 96px)' }}>
             BOOK YOUR<br />RIDE TODAY
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-10">
 
           {/* Left — contact info */}
-          <div className="flex flex-col gap-6">
-            {/* Contact cards */}
-            <div className="grid grid-cols-2 gap-0 border-2 border-steel">
+          <div className="flex flex-col gap-5">
+            <div className="grid grid-cols-2 gap-4">
               {contactItems.map((item, i) => {
                 const Icon = item.icon
                 return (
-                  <a
-                    key={i}
-                    href={item.href}
+                  <a key={i} href={item.href}
                     target={item.href.startsWith('http') ? '_blank' : undefined}
                     rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className={`no-underline group p-5 flex flex-col gap-3 bg-white hover:bg-steel transition-colors border-steel ${
-                      i < 2 ? 'border-b-2' : ''
-                    } ${i % 2 === 0 ? 'border-r-2' : ''}`}
-                  >
-                    <div className="w-10 h-10 bg-smoke group-hover:bg-gold flex items-center justify-center text-steel transition-colors">
+                    className="no-underline group p-5 flex flex-col gap-3 bg-white border border-gray-100 rounded-2xl hover:bg-steel hover:border-transparent hover:shadow-xl transition-all duration-300">
+                    <div className="w-11 h-11 bg-cream group-hover:bg-gold rounded-xl flex items-center justify-center text-steel transition-all duration-300">
                       <Icon />
                     </div>
                     <div>
-                      <p className="text-[9px] font-black tracking-[2px] uppercase text-gray-400 group-hover:text-white/50 mb-0.5 transition-colors">{item.label}</p>
-                      <p className="font-bold text-steel group-hover:text-white text-sm transition-colors break-all">{item.value}</p>
+                      <p className="text-[9px] font-black tracking-[2px] uppercase text-gray-400 group-hover:text-white/40 mb-0.5 transition-colors">{item.label}</p>
+                      <p className="font-bold text-steel group-hover:text-white text-sm transition-colors break-all leading-snug">{item.value}</p>
                     </div>
                   </a>
                 )
               })}
             </div>
 
-            {/* Quick CTA strip */}
-            <div className="bg-gold p-6 flex flex-col sm:flex-row items-center gap-4">
+            <div className="bg-gold p-6 rounded-2xl flex flex-col sm:flex-row items-center gap-4">
               <div className="flex-1">
                 <p className="font-black text-steel uppercase text-base tracking-wide">Call for instant booking</p>
-                <a href="tel:+919109105155" className="font-black text-steel text-2xl no-underline tracking-tight">
-                  910-910-5155
-                </a>
+                <a href="tel:+919109105155" className="font-black text-steel text-2xl no-underline tracking-tight">910-910-5155</a>
               </div>
-              <a
-                href="tel:+919109105155"
-                className="flex-shrink-0 bg-steel text-white px-6 py-3 rounded-full font-black text-[13px] uppercase tracking-wider no-underline hover:bg-steel-light transition-colors"
-              >
+              <a href="tel:+919109105155"
+                className="flex-shrink-0 bg-steel text-white px-6 py-3 rounded-full font-black text-[13px] uppercase tracking-wider no-underline hover:bg-steel-light transition-colors">
                 CALL NOW
               </a>
             </div>
 
-            {/* Hours */}
-            <div className="border border-gray-200 p-5">
+            <div className="border border-gray-100 p-5 rounded-2xl bg-white">
               <p className="text-[10px] font-black tracking-[2px] uppercase text-gold mb-3">AVAILABILITY</p>
               <div className="flex items-center gap-3 mb-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                 <p className="font-black text-steel text-sm uppercase tracking-wide">24 Hours · 7 Days a Week</p>
               </div>
               <p className="text-gray-500 text-sm leading-relaxed">
-                We accept bookings at any time of day or night. For pre-booked trips, please book at least 2–3 hours in advance.
+                We accept bookings at any time. For pre-booked trips, book at least 2–3 hours in advance.
               </p>
             </div>
           </div>
 
-          {/* Right — form */}
-          <div className="bg-white border-2 border-steel">
-            <div className="bg-steel px-6 py-4">
-              <p className="font-black text-white uppercase tracking-wider text-sm">Send a Booking Request</p>
-              <p className="text-white/50 text-[11px] mt-0.5">We'll confirm via WhatsApp within 5 minutes</p>
+          {/* Right — redesigned form */}
+          <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+            {/* Form header */}
+            <div className="bg-steel px-8 py-6">
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-2 h-2 bg-gold rounded-full animate-pulse" />
+                <p className="text-[10px] font-black tracking-[3px] text-gold uppercase">SEND A REQUEST</p>
+              </div>
+              <p className="font-black text-white text-lg uppercase tracking-wide">We'll confirm within 5 minutes</p>
             </div>
 
-            <div className="p-6">
+            <div className="p-7">
               {submitted && (
-                <div className="bg-green-50 border border-green-200 text-green-800 text-sm px-4 py-3 mb-4 font-semibold">
-                  ✓ Request sent! We'll confirm your booking shortly.
+                <div className="bg-green-50 border border-green-200 text-green-800 text-sm px-4 py-3 mb-5 rounded-xl font-semibold flex items-center gap-2">
+                  <span className="text-green-500">✓</span> Request sent! We'll confirm your booking shortly.
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <input name="name" value={form.name} onChange={handleChange} type="text" placeholder="Full Name *"
-                    className="border border-gray-200 focus:border-gold px-3.5 py-3 text-sm font-dm outline-none transition-colors placeholder:text-gray-300" required />
-                  <input name="phone" value={form.phone} onChange={handleChange} type="tel" placeholder="Phone *"
-                    className="border border-gray-200 focus:border-gold px-3.5 py-3 text-sm font-dm outline-none transition-colors placeholder:text-gray-300" required />
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[10px] font-black tracking-[2px] text-gray-400 uppercase mb-1.5">Full Name</label>
+                    <input name="name" value={form.name} onChange={handleChange} type="text" placeholder="Rahul Shah"
+                      className="w-full border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold/15 px-4 py-3 rounded-xl text-sm font-dm text-steel outline-none transition-all placeholder:text-gray-300 bg-gray-50 focus:bg-white" required />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black tracking-[2px] text-gray-400 uppercase mb-1.5">Phone</label>
+                    <input name="phone" value={form.phone} onChange={handleChange} type="tel" placeholder="9876543210"
+                      className="w-full border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold/15 px-4 py-3 rounded-xl text-sm font-dm text-steel outline-none transition-all placeholder:text-gray-300 bg-gray-50 focus:bg-white" required />
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <input name="pickup" value={form.pickup} onChange={handleChange} type="text" placeholder="Pickup *"
-                    className="border border-gray-200 focus:border-gold px-3.5 py-3 text-sm font-dm outline-none transition-colors placeholder:text-gray-300" required />
-                  <input name="drop" value={form.drop} onChange={handleChange} type="text" placeholder="Destination *"
-                    className="border border-gray-200 focus:border-gold px-3.5 py-3 text-sm font-dm outline-none transition-colors placeholder:text-gray-300" required />
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[10px] font-black tracking-[2px] text-gray-400 uppercase mb-1.5">Pickup</label>
+                    <input name="pickup" value={form.pickup} onChange={handleChange} type="text" placeholder="Surat"
+                      className="w-full border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold/15 px-4 py-3 rounded-xl text-sm font-dm text-steel outline-none transition-all placeholder:text-gray-300 bg-gray-50 focus:bg-white" required />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black tracking-[2px] text-gray-400 uppercase mb-1.5">Destination</label>
+                    <input name="drop" value={form.drop} onChange={handleChange} type="text" placeholder="Mumbai"
+                      className="w-full border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold/15 px-4 py-3 rounded-xl text-sm font-dm text-steel outline-none transition-all placeholder:text-gray-300 bg-gray-50 focus:bg-white" required />
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <input name="date" value={form.date} onChange={handleChange} type="date"
-                    className="border border-gray-200 focus:border-gold px-3.5 py-3 text-sm font-dm outline-none transition-colors [color-scheme:light]" />
-                  <select name="vehicle" value={form.vehicle} onChange={handleChange}
-                    className="border border-gray-200 focus:border-gold px-3.5 py-3 text-sm font-dm outline-none transition-colors bg-white"
-                    style={{ color: form.vehicle ? '#1C1C1E' : '#9CA3AF' }}>
-                    <option value="">Select Vehicle</option>
-                    <option value="sedan">Sedan</option>
-                    <option value="ertiga">Ertiga (7-seater)</option>
-                    <option value="innova">Innova (7-seater)</option>
-                  </select>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[10px] font-black tracking-[2px] text-gray-400 uppercase mb-1.5">Travel Date</label>
+                    <input name="date" value={form.date} onChange={handleChange} type="date"
+                      className="w-full border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold/15 px-4 py-3 rounded-xl text-sm font-dm text-steel outline-none transition-all [color-scheme:light] bg-gray-50 focus:bg-white" />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black tracking-[2px] text-gray-400 uppercase mb-1.5">Vehicle</label>
+                    <select name="vehicle" value={form.vehicle} onChange={handleChange}
+                      className="w-full border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold/15 px-4 py-3 rounded-xl text-sm font-dm outline-none transition-all appearance-none cursor-pointer bg-gray-50 focus:bg-white"
+                      style={{ color: form.vehicle ? '#0B1629' : '#9CA3AF' }}>
+                      <option value="">Select Vehicle</option>
+                      <option value="sedan">Sedan (4-seat)</option>
+                      <option value="ertiga">Ertiga (7-seat)</option>
+                      <option value="innova">Innova (7-seat)</option>
+                    </select>
+                  </div>
                 </div>
-                <textarea name="message" value={form.message} onChange={handleChange} rows={3}
-                  placeholder="Any special requirements, number of passengers..."
-                  className="w-full border border-gray-200 focus:border-gold px-3.5 py-3 text-sm font-dm outline-none transition-colors placeholder:text-gray-300 resize-none" />
+
+                <div>
+                  <label className="block text-[10px] font-black tracking-[2px] text-gray-400 uppercase mb-1.5">Message (optional)</label>
+                  <textarea name="message" value={form.message} onChange={handleChange} rows={3}
+                    placeholder="Special requirements, number of passengers..."
+                    className="w-full border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold/15 px-4 py-3 rounded-xl text-sm font-dm text-steel outline-none transition-all placeholder:text-gray-300 resize-none bg-gray-50 focus:bg-white" />
+                </div>
+
                 <button type="submit"
-                  className="w-full bg-gold hover:bg-gold-dark active:scale-[0.98] text-steel py-4 rounded-full text-[13px] font-black flex items-center justify-center gap-2 transition-all duration-200 border-none cursor-pointer uppercase tracking-widest">
+                  className="w-full bg-gold hover:bg-gold-dark active:scale-[0.98] text-steel py-4 rounded-2xl text-[13px] font-black flex items-center justify-center gap-2 transition-all duration-200 border-none cursor-pointer uppercase tracking-widest">
                   <SendIcon /> SEND VIA WHATSAPP
                 </button>
+
+                <p className="text-center text-[10px] text-gray-400">
+                  Sends via WhatsApp · Confirmed within 5 min
+                </p>
               </form>
             </div>
           </div>

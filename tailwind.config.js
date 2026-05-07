@@ -8,17 +8,17 @@ export default {
     extend: {
       colors: {
         gold: {
-          DEFAULT: '#E8A400',
-          light: '#F5BC2E',
-          dark: '#C88C00',
+          DEFAULT: '#F5A623',
+          light: '#FBBF24',
+          dark: '#D4880A',
         },
         steel: {
-          DEFAULT: '#1C1C1E',
-          light: '#2C2C2E',
-          muted: '#3A3A3C',
+          DEFAULT: '#0B1629',
+          light: '#142240',
+          muted: '#1E3557',
         },
-        cream: '#F5F5F3',
-        smoke: '#EBEBEB',
+        cream: '#F0F6FF',
+        smoke: '#E4EDF8',
       },
       fontFamily: {
         playfair: ['"Playfair Display"', 'serif'],

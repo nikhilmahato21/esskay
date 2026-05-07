@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useInView } from '../hooks/useInView'
 
 const pricing = [
   { destination: 'VAPI / DAMAN',     sedan: 2500,  ertiga: 3000,  innova: 4000  },
@@ -40,6 +41,7 @@ const PhoneIcon = () => (
 export default function Routes() {
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState(null)
+  const [ref, inView] = useInView()
 
   const filtered = pricing.filter(r =>
     r.destination.toLowerCase().includes(search.toLowerCase())
@@ -55,18 +57,20 @@ export default function Routes() {
       <div className="max-w-screen-xl mx-auto">
 
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
+        <div ref={ref} className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
           <div>
-            <p className="text-[10px] font-black tracking-[3px] text-gold uppercase mb-2">FARE CHART</p>
-            <h2 className="font-dm font-black text-4xl sm:text-5xl text-steel uppercase leading-tight tracking-tight">
+            <p className={`text-[10px] font-black tracking-[3px] text-gold uppercase mb-3 anim-up ${inView ? 'in-view' : ''}`}>
+              03 — FARE CHART
+            </p>
+            <h2 className={`font-dm font-black text-steel uppercase leading-[0.88] tracking-tighter anim-up d1 ${inView ? 'in-view' : ''}`}
+              style={{ fontSize: 'clamp(48px, 7vw, 96px)' }}>
               SURAT TO<br />ANYWHERE
             </h2>
-            <p className="text-gray-400 text-sm mt-3">
+            <p className={`text-gray-400 text-sm mt-4 anim-up d2 ${inView ? 'in-view' : ''}`}>
               Fixed rates · No hidden charges · All vehicles AC
             </p>
           </div>
-          {/* Phone highlight */}
-          <div className="border-2 border-steel bg-steel text-white p-5 text-center sm:text-right flex-shrink-0">
+          <div className={`bg-steel text-white p-5 text-center sm:text-right flex-shrink-0 rounded-2xl anim-up d3 ${inView ? 'in-view' : ''}`}>
             <p className="text-[10px] font-bold tracking-[2px] uppercase text-white/60 mb-1">CALL / WHATSAPP</p>
             <a href="tel:+919109105155" className="font-black text-2xl text-gold no-underline tracking-tight">
               910-910-5155
@@ -89,13 +93,13 @@ export default function Routes() {
         </div>
 
         {/* Table - desktop */}
-        <div className="hidden md:block overflow-hidden border-2 border-steel">
+        <div className="hidden md:block overflow-hidden rounded-2xl shadow-md border border-gray-100">
           {/* Header row */}
           <div className="grid grid-cols-4 bg-steel text-white">
             <div className="px-6 py-4 text-[10px] font-black tracking-[2.5px] uppercase">SURAT TO</div>
             <div className="px-6 py-4 text-[10px] font-black tracking-[2.5px] uppercase text-center border-l border-white/10">
               <div className="flex items-center justify-center gap-2">
-                <img src="https://res.cloudinary.com/dynbpb9u0/image/upload/v1777458600/dzire_kkjx6a.avif" alt="Sedan" className="h-6 w-auto object-contain opacity-80" />
+                <img src="https://res.cloudinary.com/dynbpb9u0/image/upload/v1778133245/swift-deszire-removebg-preview_nt6fnb.png" alt="Sedan" className="h-6 w-auto object-contain opacity-80" />
                 SEDAN
               </div>
             </div>
