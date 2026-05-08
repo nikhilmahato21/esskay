@@ -1,201 +1,194 @@
 import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
 
-const pricing = [
-  { destination: 'VAPI / DAMAN',     sedan: 2500,  ertiga: 3000,  innova: 4000  },
-  { destination: 'NAVSARI',          sedan: 1000,  ertiga: 1500,  innova: 2500  },
-  { destination: 'MUMBAI',           sedan: 4000,  ertiga: 5000,  innova: 6000  },
-  { destination: 'PUNE',             sedan: 6500,  ertiga: 7500,  innova: 9000  },
-  { destination: 'KOLHAPUR',         sedan: 10000, ertiga: 12000, innova: 13500 },
-  { destination: 'GOA',              sedan: 14000, ertiga: 16500, innova: 20000 },
-  { destination: 'SAPUTARA',         sedan: 3500,  ertiga: 4500,  innova: 5500  },
-  { destination: 'NASHIK',           sedan: 4000,  ertiga: 4500,  innova: 5500  },
-  { destination: 'SHIRDI',           sedan: 5000,  ertiga: 6000,  innova: 7500  },
-  { destination: 'BHARUCH',          sedan: 1800,  ertiga: 2000,  innova: 2500  },
-  { destination: 'VADODARA',         sedan: 2500,  ertiga: 3000,  innova: 4000  },
-  { destination: 'AHMEDABAD',        sedan: 3500,  ertiga: 4500,  innova: 5500  },
-  { destination: 'HAJIRA',           sedan: 800,   ertiga: 1000,  innova: 1200  },
-  { destination: 'RAJKOT',           sedan: 6500,  ertiga: 8500,  innova: 10000 },
-  { destination: 'BHAVNAGAR',        sedan: 6000,  ertiga: 7000,  innova: 8000  },
-  { destination: 'BHUJ',             sedan: 10000, ertiga: 12000, innova: 13500 },
-  { destination: 'UDAIPUR',          sedan: 8000,  ertiga: 9500,  innova: 11000 },
-  { destination: 'JAIPUR',           sedan: 15000, ertiga: 17500, innova: 20000 },
-  { destination: 'UJJAIN / INDORE',  sedan: 8500,  ertiga: 10000, innova: 12000 },
-  { destination: 'NAGPUR',           sedan: 11000, ertiga: 13000, innova: 16000 },
-  { destination: 'AURANGABAD',       sedan: 7500,  ertiga: 9500,  innova: 12000 },
-  { destination: 'STATUE OF UNITY',  sedan: 4000,  ertiga: 5000,  innova: 6000  },
-  { destination: 'NEW DELHI',         sedan: 20000,  ertiga: 25000, innova: 30000 },
+// ── Data ─────────────────────────────────────────────────────────────────────
+// Add / remove destinations here. Each origin filters its own city out automatically.
+
+const ALL_DESTINATIONS = [
+  'RAJKOT',
+  'GANDHINAGAR',
+  'GIFT CITY',
+  'AHMEDABAD CITY',
+  'ANAND',
+  'NADIAD',
+  'VADODARA',
+  'BHARUCH',
+  'ANKLESHWAR',
+  'NAVSARI',
+  'CHIKHLI',
+  'VAPI',
+  'VALSAD',
+  'DAMAN',
+  'SILVASSA',
+  'MUMBAI AIRPORT',
+  'CENTRAL / BKC',
+  'PUNE',
 ]
 
+const ORIGINS = [
+  { id: 'surat',     label: 'Surat',     short: 'SUR' },
+  { id: 'ahmedabad', label: 'Ahmedabad', short: 'AMD' },
+  { id: 'mumbai',    label: 'Mumbai',    short: 'BOM' },
+  { id: 'vapi',      label: 'Vapi',      short: 'VPI' },
+]
+
+const DESTINATIONS = {
+  surat:     ALL_DESTINATIONS,
+  ahmedabad: ALL_DESTINATIONS,
+  mumbai:    ALL_DESTINATIONS,
+  vapi:      ALL_DESTINATIONS,
+}
+
+// ── Icons ─────────────────────────────────────────────────────────────────────
 const SearchIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
   </svg>
 )
-const PhoneIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.22 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+const PinIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+  </svg>
+)
+const ArrowIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+    <path d="M5 12h14M12 5l7 7-7 7"/>
+  </svg>
+)
+const WhatsappIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
   </svg>
 )
 
+// ── Component ─────────────────────────────────────────────────────────────────
 export default function Routes() {
+  const [activeOrigin, setActiveOrigin] = useState('surat')
   const [search, setSearch] = useState('')
-  const [selected, setSelected] = useState(null)
   const [ref, inView] = useInView()
 
-  const filtered = pricing.filter(r =>
-    r.destination.toLowerCase().includes(search.toLowerCase())
+  const origin = ORIGINS.find(o => o.id === activeOrigin)
+  const destinations = DESTINATIONS[activeOrigin] ?? []
+  const filtered = destinations.filter(d =>
+    d.toLowerCase().includes(search.toLowerCase())
   )
 
-  const handleBook = (row) => {
-    const msg = `Hi! I want to book a cab from Surat to ${row.destination}.`
+  const handleBook = (destination) => {
+    const msg = `Hi! I want to book a cab from ${origin.label} to ${destination}.`
     window.open(`https://wa.me/+919109105155?text=${encodeURIComponent(msg)}`, '_blank')
   }
 
   return (
-    <section id="pricing" className="bg-white py-20 px-6 lg:px-10 border-t border-gray-100">
+    <section id="pricing" className="bg-white py-24 px-6 lg:px-10 border-t border-gray-100">
       <div className="max-w-screen-xl mx-auto">
 
-        {/* Header */}
-        <div ref={ref} className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
+        {/* Section header */}
+        <div ref={ref} className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
             <p className={`text-[10px] font-black tracking-[3px] text-gold uppercase mb-3 anim-up ${inView ? 'in-view' : ''}`}>
-              03 — FARE CHART
+              03 — ROUTES
             </p>
             <h2 className={`font-dm font-black text-steel uppercase leading-[0.88] tracking-tighter anim-up d1 ${inView ? 'in-view' : ''}`}
               style={{ fontSize: 'clamp(48px, 7vw, 96px)' }}>
-              SURAT TO<br />ANYWHERE
+              ANYWHERE<br />YOU GO
             </h2>
             <p className={`text-gray-400 text-sm mt-4 anim-up d2 ${inView ? 'in-view' : ''}`}>
-              Fixed rates · No hidden charges · All vehicles AC
+              Select your origin city · Pick your destination · Book instantly on WhatsApp
             </p>
           </div>
-          <div className={`bg-steel text-white p-5 text-center sm:text-right flex-shrink-0 rounded-2xl anim-up d3 ${inView ? 'in-view' : ''}`}>
-            <p className="text-[10px] font-bold tracking-[2px] uppercase text-white/60 mb-1">CALL / WHATSAPP</p>
+          <div className={`bg-steel text-white px-6 py-5 text-center sm:text-right flex-shrink-0 rounded-2xl anim-up d3 ${inView ? 'in-view' : ''}`}>
+            <p className="text-[10px] font-bold tracking-[2px] uppercase text-white/50 mb-1">CALL / WHATSAPP</p>
             <a href="tel:+919109105155" className="font-black text-2xl text-gold no-underline tracking-tight">
               910-910-5155
             </a>
           </div>
         </div>
 
-        {/* Search */}
-        <div className="relative mb-6 max-w-sm">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-            <SearchIcon />
-          </span>
-          <input
-            type="text"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Search destination..."
-            className="w-full border-2 border-gray-200 focus:border-gold pl-10 pr-4 py-3 text-sm font-dm text-steel outline-none transition-colors"
-          />
-        </div>
-
-        {/* Table - desktop */}
-        <div className="hidden md:block overflow-hidden rounded-2xl shadow-md border border-gray-100">
-          {/* Header row */}
-          <div className="grid grid-cols-4 bg-steel text-white">
-            <div className="px-6 py-4 text-[10px] font-black tracking-[2.5px] uppercase">SURAT TO</div>
-            <div className="px-6 py-4 text-[10px] font-black tracking-[2.5px] uppercase text-center border-l border-white/10">
-              <div className="flex items-center justify-center gap-2">
-                <img src="https://res.cloudinary.com/dynbpb9u0/image/upload/v1778133245/swift-deszire-removebg-preview_nt6fnb.png" alt="Sedan" className="h-6 w-auto object-contain opacity-80" />
-                SEDAN
-              </div>
-            </div>
-            <div className="px-6 py-4 text-[10px] font-black tracking-[2.5px] uppercase text-center border-l border-white/10 bg-gold text-steel">
-              <div className="flex items-center justify-center gap-2">
-                <img src="https://res.cloudinary.com/dynbpb9u0/image/upload/v1777915229/73237259_lnihp4-removebg-preview_w4eo3x.png" alt="Ertiga" className="h-6 w-auto object-contain" />
-                ERTIGA
-              </div>
-            </div>
-            <div className="px-6 py-4 text-[10px] font-black tracking-[2.5px] uppercase text-center border-l border-white/10">
-              <div className="flex items-center justify-center gap-2">
-                <img src="https://res.cloudinary.com/dynbpb9u0/image/upload/v1777914909/innova_fxry8l.avif" alt="Innova" className="h-6 w-auto object-contain opacity-80" />
-                INNOVA
-              </div>
-            </div>
-          </div>
-
-          {/* Data rows */}
-          {filtered.length === 0 ? (
-            <div className="py-12 text-center text-gray-400 text-sm">No destinations found for "{search}"</div>
-          ) : (
-            filtered.map((row, i) => (
-              <div
-                key={i}
-                onClick={() => setSelected(selected === i ? null : i)}
-                className={`grid grid-cols-4 border-t border-gray-100 cursor-pointer transition-colors ${
-                  selected === i ? 'bg-gold/5 border-l-4 border-l-gold' : 'hover:bg-smoke'
+        {/* Origin tabs */}
+        <div className={`mb-8 anim-up d2 ${inView ? 'in-view' : ''}`}>
+          <p className="text-[10px] font-black tracking-[2.5px] text-gray-400 uppercase mb-3">TRAVELLING FROM</p>
+          <div className="flex flex-wrap gap-2">
+            {ORIGINS.map(o => (
+              <button
+                key={o.id}
+                onClick={() => { setActiveOrigin(o.id); setSearch('') }}
+                className={`flex items-center gap-2.5 px-5 py-3 rounded-full font-black text-[12px] tracking-[1.5px] uppercase transition-all duration-200 border-none cursor-pointer ${
+                  activeOrigin === o.id
+                    ? 'bg-steel text-white shadow-lg shadow-steel/20 scale-105'
+                    : 'bg-cream text-steel hover:bg-steel/10'
                 }`}
               >
-                <div className="px-6 py-4 font-black text-sm text-steel uppercase tracking-wide flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-gold flex-shrink-0" />
-                  {row.destination}
-                </div>
-                <div className="px-6 py-4 text-center border-l border-gray-100">
-                  <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-0.5">FROM</p>
-                  <span className="font-price font-bold text-steel text-2xl tracking-tight">₹{row.sedan.toLocaleString()}</span>
-                </div>
-                <div className="px-6 py-4 text-center border-l border-gray-100 bg-gold/5">
-                  <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-0.5">FROM</p>
-                  <span className="font-price font-bold text-gold text-2xl tracking-tight">₹{row.ertiga.toLocaleString()}</span>
-                </div>
-                <div className="px-6 py-4 text-center border-l border-gray-100 flex items-center justify-between">
-                  <div className="flex-1">
-                    <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-0.5">FROM</p>
-                    <span className="font-price font-bold text-steel text-2xl tracking-tight">₹{row.innova.toLocaleString()}</span>
-                  </div>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); handleBook(row) }}
-                    className="ml-3 text-[11px] font-black tracking-wide uppercase text-steel bg-gold hover:bg-gold-dark px-4 py-2 rounded-full transition-colors border-none cursor-pointer"
-                  >
-                    Book Now
-                  </button>
-                </div>
-              </div>
-            ))
-          )}
+                <PinIcon />
+                {o.label}
+                {activeOrigin === o.id && (
+                  <span className="bg-gold text-steel text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none">
+                    {filtered.length}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Cards - mobile */}
-        <div className="md:hidden space-y-3">
+        {/* Route label + search */}
+        <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 anim-up d3 ${inView ? 'in-view' : ''}`}>
+          <div className="flex items-center gap-3 bg-cream px-5 py-3 rounded-full">
+            <span className="text-[11px] font-black text-gray-400 uppercase tracking-wider">From</span>
+            <span className="text-gold font-black text-sm uppercase tracking-wider">{origin.label}</span>
+            <ArrowIcon />
+            <span className="text-[11px] font-black text-gray-400 uppercase tracking-wider">Select destination below</span>
+          </div>
+
+          <div className="relative w-full sm:w-auto sm:min-w-[220px]">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+              <SearchIcon />
+            </span>
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search destination..."
+              className="w-full border border-gray-200 focus:border-gold focus:ring-2 focus:ring-gold/15 pl-10 pr-4 py-3 rounded-full text-sm font-dm text-steel outline-none transition-all bg-gray-50 focus:bg-white"
+            />
+          </div>
+        </div>
+
+        {/* Destination list */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           {filtered.length === 0 ? (
-            <div className="py-8 text-center text-gray-400 text-sm">No destinations found</div>
+            <div className="py-16 text-center text-gray-400 text-sm">
+              No destinations found for "{search}"
+            </div>
           ) : (
-            filtered.map((row, i) => (
-              <div key={i} className="border border-gray-200 bg-white overflow-hidden">
-                <div className="bg-steel text-white px-4 py-3 flex items-center justify-between">
-                  <span className="font-black text-sm uppercase tracking-wide">{row.destination}</span>
-                  <button
-                    onClick={() => handleBook(row)}
-                    className="text-[11px] font-black tracking-wide uppercase text-steel bg-gold hover:bg-gold-dark px-4 py-1.5 rounded-full border-none cursor-pointer transition-colors"
-                  >
-                    Book Now
-                  </button>
-                </div>
-                <div className="grid grid-cols-3 divide-x divide-gray-100">
-                  <div className="px-3 py-4 text-center">
-                    <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-1">SEDAN</p>
-                    <p className="font-price font-bold text-steel text-xl tracking-tight">₹{row.sedan.toLocaleString()}</p>
-                  </div>
-                  <div className="px-3 py-4 text-center bg-gold/5">
-                    <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-1">ERTIGA</p>
-                    <p className="font-price font-bold text-gold text-xl tracking-tight">₹{row.ertiga.toLocaleString()}</p>
-                  </div>
-                  <div className="px-3 py-4 text-center">
-                    <p className="text-[9px] font-bold tracking-[1.5px] text-gray-400 uppercase mb-1">INNOVA</p>
-                    <p className="font-price font-bold text-steel text-xl tracking-tight">₹{row.innova.toLocaleString()}</p>
+            filtered.map((dest, i) => (
+              <div
+                key={dest}
+                className={`flex items-center justify-between px-5 sm:px-7 py-4 sm:py-5 ${
+                  i !== 0 ? 'border-t border-gray-100' : ''
+                } hover:bg-cream transition-colors duration-150`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-gold flex-shrink-0"><PinIcon /></span>
+                  <div>
+                    <p className="font-black text-steel text-base sm:text-lg uppercase tracking-wide leading-tight">{dest}</p>
+                    <p className="text-[11px] text-gray-400 font-medium mt-0.5">from {origin.label}</p>
                   </div>
                 </div>
+                <button
+                  onClick={() => handleBook(dest)}
+                  className="flex-shrink-0 flex items-center gap-2 bg-gold hover:bg-gold-dark active:scale-95 text-steel font-black text-[12px] sm:text-[13px] tracking-wider uppercase px-5 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-200 border-none cursor-pointer ml-4 shadow-sm"
+                >
+                  <WhatsappIcon />
+                  Book Now
+                </button>
               </div>
             ))
           )}
         </div>
 
-        {/* Notes + CTA */}
-        <div className="mt-8 grid sm:grid-cols-2 gap-4">
-          <div className="bg-cream border border-gray-200 p-5">
+        {/* Bottom strip */}
+        <div className={`mt-8 grid sm:grid-cols-2 gap-4 anim-up d4 ${inView ? 'in-view' : ''}`}>
+          <div className="bg-cream border border-gray-100 p-5 rounded-2xl">
             <p className="text-[10px] font-black tracking-[2px] uppercase text-gold mb-3">IMPORTANT NOTES</p>
             <ul className="space-y-2">
               {[
@@ -205,39 +198,34 @@ export default function Routes() {
                 'Rates are for one-way trips',
                 'Round-trip discounts available',
               ].map(note => (
-                <li key={note} className="flex items-start gap-2 text-[12px] text-gray-600">
-                  <span className="mt-1.5 w-1.5 h-1.5 bg-gold flex-shrink-0" />
+                <li key={note} className="flex items-start gap-2 text-[12px] text-gray-500">
+                  <span className="mt-1.5 w-1.5 h-1.5 bg-gold rounded-full flex-shrink-0" />
                   {note}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="bg-steel p-5 flex flex-col justify-between">
+          <div className="bg-steel p-5 rounded-2xl flex flex-col justify-between gap-4">
             <div>
               <p className="text-[10px] font-black tracking-[2px] uppercase text-gold mb-2">CUSTOM ROUTE?</p>
-              <p className="text-white/70 text-sm leading-relaxed mb-4">
+              <p className="text-white/60 text-sm leading-relaxed">
                 Don't see your destination? We travel anywhere. Call us for a custom quote.
               </p>
             </div>
             <div className="flex gap-3">
-              <a
-                href="tel:+919109105155"
-                className="flex items-center gap-2 bg-gold text-steel px-5 py-3 font-black text-[12px] uppercase tracking-wider no-underline hover:bg-gold-light transition-colors"
-              >
-                <PhoneIcon /> CALL US
+              <a href="tel:+919109105155"
+                className="flex items-center gap-2 bg-gold text-steel px-5 py-3 rounded-full font-black text-[12px] uppercase tracking-wider no-underline hover:bg-gold-light transition-colors">
+                CALL US
               </a>
-              <a
-                href="https://wa.me/+919109105155"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-white/20 text-white px-5 py-3 font-black text-[12px] uppercase tracking-wider no-underline hover:bg-white/10 transition-colors"
-              >
+              <a href="https://wa.me/+919109105155" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-2 border border-white/20 text-white px-5 py-3 rounded-full font-black text-[12px] uppercase tracking-wider no-underline hover:bg-white/10 transition-colors">
                 WHATSAPP
               </a>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   )
