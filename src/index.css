@@ -12,7 +12,10 @@
     background: #ffffff;
     overflow-x: hidden;
   }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
 }
 
 /* ── Scroll animations ── */

@@ -89,7 +89,7 @@ export default function Routes() {
               03 — ROUTES
             </p>
             <h2 className={`font-dm font-black text-steel uppercase leading-[0.88] tracking-tighter anim-up d1 ${inView ? 'in-view' : ''}`}
-              style={{ fontSize: 'clamp(48px, 7vw, 96px)' }}>
+              style={{ fontSize: 'clamp(36px, 7vw, 96px)' }}>
               ANYWHERE<br />YOU GO
             </h2>
             <p className={`text-gray-400 text-sm mt-4 anim-up d2 ${inView ? 'in-view' : ''}`}>
@@ -107,7 +107,7 @@ export default function Routes() {
         {/* Origin tabs */}
         <div className={`mb-8 anim-up d2 ${inView ? 'in-view' : ''}`}>
           <p className="text-[10px] font-black tracking-[2.5px] text-gray-400 uppercase mb-3">TRAVELLING FROM</p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 w-full">
             {ORIGINS.map(o => (
               <button
                 key={o.id}
@@ -131,15 +131,15 @@ export default function Routes() {
         </div>
 
         {/* Route label + search */}
-        <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 anim-up d3 ${inView ? 'in-view' : ''}`}>
-          <div className="flex items-center gap-3 bg-cream px-5 py-3 rounded-full">
-            <span className="text-[11px] font-black text-gray-400 uppercase tracking-wider">From</span>
-            <span className="text-gold font-black text-sm uppercase tracking-wider">{origin.label}</span>
-            <ArrowIcon />
-            <span className="text-[11px] font-black text-gray-400 uppercase tracking-wider">Select destination below</span>
+        <div className={`flex flex-col gap-3 mb-6 anim-up d3 ${inView ? 'in-view' : ''}`}>
+          <div className="flex items-center gap-2 bg-cream px-4 py-2.5 rounded-full w-fit max-w-full overflow-hidden">
+            <span className="text-[11px] font-black text-gray-400 uppercase tracking-wider shrink-0">From</span>
+            <span className="text-gold font-black text-sm uppercase tracking-wider shrink-0">{origin.label}</span>
+            <span className="shrink-0"><ArrowIcon /></span>
+            <span className="text-[11px] font-black text-gray-400 uppercase tracking-wider truncate">Select destination below</span>
           </div>
 
-          <div className="relative w-full sm:w-auto sm:min-w-[220px]">
+          <div className="relative w-full">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
               <SearchIcon />
             </span>

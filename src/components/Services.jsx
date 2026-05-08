@@ -57,7 +57,7 @@ export default function Services() {
               02 — WHAT WE OFFER
             </p>
             <h2 className={`font-dm font-black text-steel uppercase leading-[0.88] tracking-tighter anim-up d1 ${inView ? 'in-view' : ''}`}
-              style={{ fontSize: 'clamp(48px, 7vw, 96px)' }}>
+              style={{ fontSize: 'clamp(36px, 7vw, 96px)' }}>
               OUR<br />SERVICES
             </h2>
           </div>

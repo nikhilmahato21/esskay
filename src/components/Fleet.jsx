@@ -7,7 +7,7 @@ const vehicles = [
     bestFor: 'CITY & INTERCITY',
     seats: 4,
     tags: ['AC', 'COMFORTABLE', 'ECONOMICAL', 'GPS TRACKED'],
-    image: 'https://res.cloudinary.com/dynbpb9u0/image/upload/v1777458600/dzire_kkjx6a.avif',
+    image: 'https://res.cloudinary.com/dynbpb9u0/image/upload/v1778133245/swift-deszire-removebg-preview_nt6fnb.png',
     desc: 'Perfect for 1–4 passengers. Fuel-efficient and comfortable for both city rides and outstation trips.',
     startFrom: 'From ₹1,000',
   },
@@ -55,7 +55,7 @@ export default function Fleet() {
                 01 — OUR FLEET
               </p>
               <h2 className={`font-dm font-black text-steel uppercase leading-[0.88] tracking-tighter anim-up d1 ${inView ? 'in-view' : ''}`}
-                style={{ fontSize: 'clamp(48px, 7vw, 96px)' }}>
+                style={{ fontSize: 'clamp(36px, 7vw, 96px)' }}>
                 CHOOSE<br />YOUR<br />VEHICLE
               </h2>
             </div>

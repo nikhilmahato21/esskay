@@ -53,12 +53,12 @@ export default function About() {
             04 — ABOUT US
           </p>
           <h2 className={`font-dm font-black text-steel uppercase leading-[0.88] tracking-tighter anim-up d1 ${inView ? 'in-view' : ''}`}
-            style={{ fontSize: 'clamp(48px, 7vw, 96px)' }}>
+            style={{ fontSize: 'clamp(36px, 7vw, 96px)' }}>
             SURAT'S<br />TRUSTED<br />CAB SERVICE
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
 
           {/* Left — text */}
           <div>
